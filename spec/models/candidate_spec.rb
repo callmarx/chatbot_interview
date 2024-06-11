@@ -6,6 +6,7 @@ RSpec.describe Candidate, type: :model do
   subject { build(:candidate) }
 
   describe "validations" do
+    it { is_expected.to have_many(:messages) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to allow_value("test@example.com").for(:email) }

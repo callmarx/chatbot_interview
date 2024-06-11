@@ -10,9 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_11_132235) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_11_205043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "senders", ["assistant", "user"]
 
   create_table "candidates", force: :cascade do |t|
     t.string "name", null: false
@@ -28,4 +32,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_132235) do
     t.index ["email"], name: "index_candidates_on_email", unique: true
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.enum "sender", null: false, enum_type: "senders"
+    t.text "content", null: false
+    t.bigint "candidate_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["candidate_id"], name: "index_messages_on_candidate_id"
+  end
+
+  add_foreign_key "messages", "candidates"
 end

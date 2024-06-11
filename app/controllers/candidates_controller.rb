@@ -8,7 +8,7 @@ class CandidatesController < ApplicationController
   def create
     @candidate = Candidate.new(candidate_params)
     if @candidate.save
-      redirect_to(root_path, notice: "Candidate was successfully created.")
+      redirect_to(chat_path(@candidate), notice: "Candidate was successfully created.")
     else
       render("candidates/index")
     end
