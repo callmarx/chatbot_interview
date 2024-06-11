@@ -1,0 +1,70 @@
+<div class="container mx-auto px-4 py-8">
+  <% if notice %>
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+      <strong class="font-bold">Success!</strong>
+      <span class="block sm:inline"><%= notice %></span>
+    </div>
+  <% end %>
+  <h1 class="text-4xl font-bold mb-6 text-center">Job Description</h1>
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <p class="mb-4">So... do you want to work remotely and make a good amount of money from the comfort of your home without having to sacrifice your personal life for your job?</p>
+    <p class="mb-4 font-bold">STOP READING. This is definitely NOT for you.</p>
+    <p class="mb-4">Now... do you wanna make a difference by working on something you will look back and be proud of?</p>
+    <p class="mb-4">Do you want to be a key element in the process of building something great?</p>
+    <p class="mb-4">Do you wanna look back a few years from now and be overblown how much you evolved as a professional and as person? (like "dude... 2 years ago I was such an incompetent / arrogant naive kid who thought I knew so much about everything!!")</p>
+    <p class="mb-4 font-bold">In that case, READ ON!</p>
+    <p class="mb-4">We are Plaza, a VC-backed Brazilian Proptech / Fintech (currently growing 34% monthly) that is focused on helping reshape the somewhat old-school real estate market with the use of technology and AI and we are looking for software developers with an entrepreneur mindset to help us in this goal.</p>
+    <p class="mb-4">Keep in mind that you are going to be a part of our FOUNDING TEAM; which means that this is absolutely not the kind of job where you will be just writing software by yourself and getting absorbed by technical shenanigans.</p>
+    <p class="mb-4">Your main job will be to deliver value to the company, and this means you are going to be playing multiple roles; especially by communicating with our company's main stakeholders (founders, clients, other team members) about what solutions are going to be built and even by questioning if we really need to be building those solutions in the first place.</p>
+    <p class="mb-4">In other words: we want you here because we want you to help us BUILD THIS COMPANY; writing software is just a means to that end and we expect you to contribute in many other ways.</p>
+    <p class="mb-4">Speaking of which, we are a 100% on-site company (located in Sao Paulo). We believe that, in order to build something great, you have to make meaningful / strong connections with your co-workers. Just think about it: you are going to be spending most of your time working anyway... might as well make real connections and have some fun in this process, right?</p>
+    <p class="mb-4">Yeah, I know... we do get kinda lazy about going to the office sometimes, and this isn't really completely set in stone (you will get the opportunity to work remotely on a few occasions); however, what we are trying to say is that we want to connect with you, maybe become friends and absolutely have some fun while trying to build something great.</p>
+    <p class="mb-4 font-bold">So... still interested?</p>
+    <p class="mb-4">Now, let's talk about technical stuff. We are currently using Ruby on Rails as our tech stack and the reason why we chose it was because RoR aims at optimizing developer productivity. And that is exactly what we need right now, as we must iterate quickly with our clients to make our product amazing.</p>
+    <p class="mb-4">On top of that we are working heavily on top of OpenAI's API in some pretty novel ways to create chat bots that are capable of delivering an outstanding performance compared to what you see out there. And we mean it when we say "in some pretty novel ways", just as an example we've already managed to create an internal framework that is capable of both scaling token counts and breaking down large prompt instructions into smaller ones, scaling both the development and the performance of our chat bots (and we have so much more in our pipeline to come!).</p>
+    <p class="mb-4">Having said that, we also believe that great developers aren't really tied to a particular language or framework. Great developers understand the difference between tools and fundamentals and, as long as you understand the fundamentals, you are capable of writing code in many different languages and frameworks. Hence, do not refrain from applying if you never worked with Ruby on Rails before!</p>
+    <p class="mb-4">Are you still with me?</p>
+    <p class="mb-4">Ok, now, let's finally get to the boring-ish HR-standard rigmarole:</p>
+    
+    <h2 class="text-2xl font-bold mb-4">Who you are</h2>
+    <ul class="list-disc list-inside mb-4">
+      <li class="mb-2">You love building stuff from scratch and working with loosely defined problems.</li>
+      <li class="mb-2">Even though software is your "thing", you also have a lot of interest in understanding the product itself and participating in its inception.</li>
+      <li class="mb-2">You are a lifelong learner who is always thrilled to take on new and challenging software projects.</li>
+      <li class="mb-2">You believe your job is not only about writing software, but also understanding its purpose. You often propose changes to the project itself in order to make it more viable/cheaper.</li>
+      <li class="mb-2">You are a communicative person that values building strong relationships with colleagues and stakeholders and have the ability to explain complex topics in simple terms.</li>
+      <li class="mb-2">You are willing to sacrifice some of your free time to build what might be the next big thing in your life/career.</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-4">Your Skills</h2>
+    <ul class="list-disc list-inside mb-4">
+      <li class="mb-2">You are a software developer with at least 5 years of experience</li>
+      <li class="mb-2">You hold a senior/staff/leadership software development position in a tech-driven company</li>
+      <li class="mb-2">You are an "expert generalist" and have a deep general understanding about different software development "disciplines" (front-end, back-end, databases, different programming language paradigms, etc).</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-4">Pluses</h2>
+    <ul class="list-disc list-inside mb-4">
+      <li class="mb-2">You have GenAI / ML experience.</li>
+    </ul>
+
+    <p class="mb-4">We will be offering a competitive salary and, most importantly, an aggressive stock options plan.</p>
+  </div>
+  
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h2 class="text-2xl font-bold mb-4 text-center">Apply Now</h2>
+    <%= form_with model: @candidate, url: candidates_path, method: :post, local: true do |form| %>
+      <div class="mb-4">
+        <%= form.label :name, "Name", class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :email, "Email", class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= form.email_field :email, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+      <div class="flex items-center justify-center">
+        <%= form.submit "Apply and talk with our bot!", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      </div>
+    <% end %>
+  </div>
+</div>
