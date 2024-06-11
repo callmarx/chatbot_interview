@@ -286,7 +286,7 @@ RSpec/MultipleExpectations:
 # Checks if example groups contain too many `let` and `subject` calls.
 RSpec/MultipleMemoizedHelpers:
   Enabled: true
-  Max: 5
+  Max: 10
 
 # Checks if an example group defines `subject` multiple times.
 RSpec/MultipleSubjects:

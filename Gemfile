@@ -48,6 +48,8 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby] if %w[mingw mswin 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri windows]
+  # Shim to load environment variables from .env into ENV in development.
+  gem "dotenv", "~> 3.1.2"
   # Show database columns and indexes inside files.
   gem "annotate", "~> 3.2"
   # Ensure the database is in a clean state on every test.
