@@ -10,7 +10,8 @@ class CandidatesController < ApplicationController
     if @candidate.save
       redirect_to(chat_path(@candidate), notice: "Candidate was successfully created.")
     else
-      render("candidates/index")
+      flash.now[:alert] = "There was an error creating the candidate. Please try again."
+      render(:index)
     end
   end
 

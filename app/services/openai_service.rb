@@ -1,36 +1,42 @@
 # frozen_string_literal: true
 
 class OpenaiService
-  def initialize(prompt)
+  API_URL = ENV.fetch("OPENAI_API_URL")
+  API_KEY = ENV.fetch("OPENAI_API_KEY")
+  MODEL = ENV.fetch("MODEL")
+  HEADERS = { "Content-Type" => "application/json", "Authorization" => "Bearer #{API_KEY}" }.freeze
+
+  def initialize(prompt, chat_history)
     @prompt = prompt
+    @chat_history = chat_history
+    @context = Rails.root.join("config/gpt_context.txt").read
   end
 
   def perform
-    response = HTTParty.post(
-      ENV.fetch("OPENAI_API_URL", nil),
-      headers: {
-        "Content-Type" => "application/json",
-        "Authorization" => "Bearer #{ENV.fetch("OPENAI_API_KEY", nil)}"
-      },
-      body: build_request_body
-    )
+    response = send_request
+    Rails.logger.debug { "### DEBUG - GPT Body Sent: #{build_request_body.inspect}" }
     handle_response(response)
   end
 
   private
+    def send_request
+      HTTParty.post(API_URL, headers: HEADERS, body: build_request_body.to_json)
+    end
+
     def build_request_body
+      messages = @chat_history.unshift({ role: "system", content: @context })
+      messages.push({ role: "user", content: @prompt })
       {
-        model: ENV.fetch("MODEL", nil),
-        messages: [
-          { role: "system", content: load_context },
-          { role: "assistant",
-            content: "Olá, me chamo Fernanda e sou a recrutadora responsável pela vaga de desenvolvedor da Plaza. Você tem alguma dúvida sobre a vaga?" },
-          { role: "user", content: @prompt }
-        ],
-        temperature: ENV.fetch("TEMPERATURE").to_i,
-        max_tokens: ENV.fetch("MAX_TOKENS").to_i,
-        top_p: ENV.fetch("TOP_P").to_i
-      }.to_json
+        model: MODEL,
+        messages: messages,
+        temperature: ENV.fetch("TEMPERATURE", 1).to_f,
+        max_tokens: ENV.fetch("MAX_TOKENS", 300).to_i
+        ## Uncomment the lines below if you need these parameters
+        # top_p: ENV.fetch("TOP_P", 1).to_f,
+        # frequency_penalty: ENV.fetch("FREQUENCY_PENALTY").to_f,
+        # presence_penalty: ENV.fetch("PRESENCE_PENALTY").to_f,
+        # stop: "Obrigado Fernanda.",
+      }
     end
 
     def handle_response(response)
@@ -40,25 +46,5 @@ class OpenaiService
         Rails.logger.error("OpenAI API request failed: #{response.body}")
         { "error" => "Failed to get response from OpenAI API" }
       end
-    end
-
-    def load_context
-      <<~TEXT
-        You are Fernanda, a recruiter responsible for the Plaza developer position.
-        You should only return responses of up to 30 words.
-        You must respond in brazilian portuguese.
-
-        You should obtain the following information from the candidate:
-        - How many years of experience he or she has
-        - What is his/her favorite programming language
-        - Whether or not he/she is willing to program using ruby
-        - Whether or not he/she is willing to work on-site
-        - When the applicant would like to interview
-
-        You must answer any questions the potential candidate might have about the job post and you cannot talk about anything other than the job opportunity.
-
-        The job post is:
-        #{Rails.root.join("config/job_post_description.txt").read}
-      TEXT
     end
 end
