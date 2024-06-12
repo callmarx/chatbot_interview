@@ -10,28 +10,27 @@ RSpec.describe "Candidates", type: :request do
     end
   end
 
-  describe "POST /candidates" do
-    context "with valid attributes" do
-      it "creates a new candidate" do
-        post candidates_path, params: { candidate: attributes_for(:candidate) }
-        expect(Candidate.count).to be(1)
-      end
+  describe 'POST /candidates' do
+    context 'with valid candidate parameters' do
+      let(:valid_candidate_params) { { candidate: { name: 'John Doe', email: 'john.doe@example.com' } } }
 
-      it "redirects to root_path" do
-        post candidates_path, params: { candidate: attributes_for(:candidate) }
-        expect(response).to redirect_to(root_path)
-      end
+      it 'creates a new candidate and redirects to chat path' do
+        post candidates_path, params: valid_candidate_params
+        candidate = Candidate.last
 
-      it "sets a notice message" do
-        post candidates_path, params: { candidate: attributes_for(:candidate) }
-        expect(flash[:notice]).to eq("Candidate was successfully created.")
+        expect(response).to redirect_to(chat_path(candidate))
+        expect(flash[:alert]).to be_nil
       end
     end
 
-    context "with invalid attributes" do
-      it "does not create a new candidate" do
-        post candidates_path, params: { candidate: attributes_for(:candidate, name: nil) }
-        expect(Candidate.count).to be(0)
+    context 'with invalid candidate parameters' do
+      let(:invalid_candidate_params) { { candidate: { name: '', email: 'invalid-email' } } }
+
+      it 'does not create a new candidate and redirects to root path with alert' do
+        post candidates_path, params: invalid_candidate_params
+
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq("There was an error on your apply. Please try again.")
       end
     end
   end

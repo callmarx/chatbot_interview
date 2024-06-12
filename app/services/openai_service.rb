@@ -31,11 +31,6 @@ class OpenaiService
         messages: messages,
         temperature: ENV.fetch("TEMPERATURE", 1).to_f,
         max_tokens: ENV.fetch("MAX_TOKENS", 300).to_i
-        ## Uncomment the lines below if you need these parameters
-        # top_p: ENV.fetch("TOP_P", 1).to_f,
-        # frequency_penalty: ENV.fetch("FREQUENCY_PENALTY").to_f,
-        # presence_penalty: ENV.fetch("PRESENCE_PENALTY").to_f,
-        # stop: "Obrigado Fernanda.",
       }
     end
 

@@ -3,7 +3,7 @@
 class Candidate < ApplicationRecord
   has_many :messages, dependent: :destroy
   validates :name, presence: true
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   after_create :create_initial_message
 
