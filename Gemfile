@@ -31,8 +31,10 @@ gem "jbuilder", "~> 2.12.0"
 gem "bootsnap", require: false
 # Library that allows you to use other API’s and provides responses from them.
 gem "httparty", "~> 0.22.0"
-# Use Redis adapter to run Action Cable in production
-# gem "redis", ">= 4.0.1"
+# Simple, efficient background processing for Ruby
+gem "sidekiq"
+# Redis adapter (a memmory database for sidekiq)
+gem "redis"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

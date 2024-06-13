@@ -266,9 +266,10 @@ Rails/I18nLazyLookup:
 Rails/I18nLocaleAssignment:
   Enabled: true
 
-# Enforces use of I18n and locale files instead of locale specific strings.
-Rails/I18nLocaleTexts:
-  Enabled: true
+## DISABLED
+# # Enforces use of I18n and locale files instead of locale specific strings.
+# Rails/I18nLocaleTexts:
+#   Enabled: true
 
 # Looks for assignments of `ignored_columns` that may override previous assignments.
 # See https://rails.rubystyle.guide/#append-ignored-columns.

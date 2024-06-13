@@ -14,7 +14,7 @@ class OpenaiService
 
   def perform
     response = send_request
-    Rails.logger.debug { "### DEBUG - GPT Body Sent: #{build_request_body.inspect}" }
+    # Rails.logger.debug { "### DEBUG - GPT Body Sent: #{build_request_body.inspect}" }
     handle_response(response)
   end
 
@@ -38,7 +38,7 @@ class OpenaiService
       if response.success?
         JSON.parse(response.body)
       else
-        Rails.logger.error("OpenAI API request failed: #{response.body}")
+        Rails.logger.error("### ERROR - OpenAI API request failed: #{response.body}")
         { "error" => "Failed to get response from OpenAI API" }
       end
     end

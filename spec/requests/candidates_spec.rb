@@ -10,11 +10,11 @@ RSpec.describe "Candidates", type: :request do
     end
   end
 
-  describe 'POST /candidates' do
-    context 'with valid candidate parameters' do
-      let(:valid_candidate_params) { { candidate: { name: 'John Doe', email: 'john.doe@example.com' } } }
+  describe "POST /candidates" do
+    context "with valid candidate parameters" do
+      let(:valid_candidate_params) { { candidate: { name: "John Doe", email: "john.doe@example.com" } } }
 
-      it 'creates a new candidate and redirects to chat path' do
+      it "creates a new candidate and redirects to chat path" do
         post candidates_path, params: valid_candidate_params
         candidate = Candidate.last
 
@@ -23,10 +23,10 @@ RSpec.describe "Candidates", type: :request do
       end
     end
 
-    context 'with invalid candidate parameters' do
-      let(:invalid_candidate_params) { { candidate: { name: '', email: 'invalid-email' } } }
+    context "with invalid candidate parameters" do
+      let(:invalid_candidate_params) { { candidate: { name: "", email: "invalid-email" } } }
 
-      it 'does not create a new candidate and redirects to root path with alert' do
+      it "does not create a new candidate and redirects to root path with alert" do
         post candidates_path, params: invalid_candidate_params
 
         expect(response).to redirect_to(root_path)
